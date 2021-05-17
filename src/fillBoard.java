@@ -11,7 +11,7 @@ public class fillBoard {
 
 	static String winner;
 	static computerTurn ct = new computerTurn();
-	static int user_pt = 1;
+	static int user_pt = 1;		//each selected box of the board is populated by points according to player. 1 represents user
 	
 	
 	static void fillUp(int x_cor, int y_cor)
@@ -56,7 +56,7 @@ public class fillBoard {
 			drawOnLoc(box);		
 			getLocation.boxesLeft.remove(Integer.valueOf(box));  //remove from list of available boxes      
 			getLocation.turn=1;		//next turn is of computer so turn is changed to 1
-			gameFrame.gp.repaint();	//repaint board with updates
+			gameFrame.gp.repaint();	//repaint board w.ith updates
 		}
 			
 

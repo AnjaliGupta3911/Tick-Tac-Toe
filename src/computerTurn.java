@@ -10,35 +10,36 @@ import javax.swing.Timer;
 
 public class computerTurn {
 	
-	int comp_pt = -1;
+	int comp_pt = -1; 		 //each selected box of the board is populated by points according to player. -1 represents computer
 	int computersChance()
 	{
-		int box = chooseBox();
+		int box = choosebox();
 		populateBoard.populate(box,comp_pt);    	
 		return box;		
 	}
 	
-	int chooseBox()
+	int choosebox()
 	{
 		Random rand = new Random();
-		int sz = getLocation.boxesLeft.size();
+		
+		//finalPos contains list of box no. where computer can place nought
+		LinkedList finalPos = chooseBox.selectBox();
+		
+		int sz = finalPos.size();
 		Integer i = null;
 		if(sz>0)
 		{
 			int randomIndex = rand.nextInt(sz);
-			i = (Integer) getLocation.boxesLeft.get(randomIndex);
-			getLocation.boxesLeft.remove(randomIndex);
+			//choose random box
+			i = (Integer) finalPos.get(randomIndex);
+			//remove it from list of available boxes
+			getLocation.boxesLeft.remove(i);
 		}
 		else
 		{
 			JOptionPane.showMessageDialog(null,"  Game Tie! ");
     		System.exit(0);
 		}
-		
-/*		System.out.println("boxes left after computer's turn:");
-		for(int j=0;j<getLocation.boxesLeft.size();j++)
-			System.out.print(getLocation.boxesLeft.get(j));
-		System.out.println();*/
 		
 		return i.intValue();
 	}

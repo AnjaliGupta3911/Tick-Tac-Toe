@@ -9,22 +9,7 @@ public class GameMain
 	public static void main(String[] args) 
 	{
 
-		gameFrame fr = new gameFrame();
-		
-		int turn=0;	//0 => user; 1 => computer
-		
-		int choice = acceptUserInput();
-		if (choice==2 || choice==1)
-			System.exit(0);
-		
-		
+		gameFrame fr = new gameFrame();	
 		fr.setVisible(true);
-
-	}
-	
-	static int acceptUserInput()
-	{
-		int input = JOptionPane.showConfirmDialog(null, "Start Game?");
-		return input;	
 	}
 }
