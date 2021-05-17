@@ -46,7 +46,7 @@ public class gamePanel extends JPanel {
 	{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setStroke(new BasicStroke(4));
-		g2d.setColor(Color.WHITE);
+		g2d.setColor(Color.BLACK);
 		//vertical lines
         g2d.drawLine(x1,y1, x1, y2);
         g2d.drawLine(x2,y1, x2, y2);
