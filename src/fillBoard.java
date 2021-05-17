@@ -2,147 +2,113 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
-
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 
+//to-do: disable user from selecting already filled box
 public class fillBoard {
 
-/*	
-	void fillUp(MouseEvent e,int turn, LinkedList boxesLeft, gamePanel gp )
+	static String winner;
+	static computerTurn ct = new computerTurn();
+	static int user_pt = 1;
+	
+	
+	static void fillUp(int x_cor, int y_cor)
 	{
-		int x = e.getX();
-       int 	y = e.getY();
-			//System.out.println("user clicked x="+x+" y="+y);
-	        	if(x<=90)
-	        	{
-	        		if(y<=105)
-	        		{
-	        			//Box 1
-	        			populateBoard.populate(1,1);
-	        			
-	        			drawOnLoc(1,turn,gp,boxesLeft);
-	        			boxesLeft.remove(Integer.valueOf(1));
-	        			turn=1;
-	        			gp.repaint();
-	        			//draw x or o
-	        		}
-	        		else if(y>105 && y<=205)
-	        		{
-	        			//Box 4
-	        			populateBoard.populate(4,1);
-	        			drawOnLoc(4,turn,gp,boxesLeft);
-	        			boxesLeft.remove(Integer.valueOf(4));
-	        			turn=1;
-	        			gp.repaint();
-	        			//draw x or o
-	        		}
-	        		else 
-	        		{
-	        			//Box 7
-	        			populateBoard.populate(7,1);
-	        			
-	        			drawOnLoc(7,turn,gp,boxesLeft);
-	        			boxesLeft.remove(Integer.valueOf(7));
-	        			turn=1;
-	        			gp.repaint();
-	        			//draw x or o
-	        		}
-	        		
-	        	}
-	        	else if(x>90 && x<=200)
-	        	{
+		int x = x_cor;
+        int y = y_cor;
+        int box;
+     
+        //determine the box
+	    if(x<=90)
+        {
+        		if(y<=105)
+        			box=1;
+        		else if(y>105 && y<=205)  
+        			box=4;        		
+        		else  
+        			box=7;      		     		
+        } 
+        else if(x>90 && x<=200)
+        {
+        		if(y<=105)
+        			box=2;
+        		else if(y>105 && y<=205)    
+        			box=5;
+        		else  	
+        			box=8;   		    	
+        } 
+        else
+        {
+        		if(y<=105)
+        			box =3;
+        		else if(y>105 && y<=205)   		
+        			box=6;
+        		else   	
+        			box=9;    		
+        }
+	        
+	    //check if selected box is empty. then populate board and draw on it
+		if(checkAvailaility.isAvailable(box) == true)
+		{
+			populateBoard.populate(box,user_pt);  
+			drawOnLoc(box);		
+			getLocation.boxesLeft.remove(Integer.valueOf(box));  //remove from list of available boxes      
+			getLocation.turn=1;		//next turn is of computer so turn is changed to 1
+			gameFrame.gp.repaint();	//repaint board with updates
+		}
+			
 
-	        		if(y<=105)
-	        		{
-	        			//Box 2
-	        			populateBoard.populate(2,1);
-	        			
-	        			drawOnLoc(2,turn,gp,boxesLeft);
-	        			boxesLeft.remove(Integer.valueOf(2));
-	        			turn=1;
-	        			gp.repaint();
-	        			//draw x or o
-	        		}
-	        		else if(y>105 && y<=205)
-	        		{
-	        			//Box 5
-	        			populateBoard.populate(5,1);
-	        			
-	        			drawOnLoc(5,turn,gp,boxesLeft);
-	        			boxesLeft.remove(Integer.valueOf(5));
-	        			turn=1;
-	        			gp.repaint();
-	        			//draw x or o
-	        		}
-	        		else 
-	        		{
-	        			//Box 8
-	        			populateBoard.populate(8,1);
-	        			
-	        			drawOnLoc(8,turn,gp,boxesLeft);
-	        			boxesLeft.remove(Integer.valueOf(8));
-	        			turn=1;
-	        			gp.repaint();
-	        			//draw x or o
-	        		}    		    	
-	        	} 
-	        	else
-	        	{
-	        		if(y<=105)
-	        		{
-	        			//Box 3
-	        			populateBoard.populate(3,1);
-	        			
-	        			drawOnLoc(3,turn,gp,boxesLeft);
-	        			boxesLeft.remove(Integer.valueOf(3));
-	        			turn=1;
-	        			gp.repaint();
-	        			//draw x or o
-	        		}
-	        		else if(y>105 && y<=205)
-	        		{
-	        			//Box 6
-	        			populateBoard.populate(6,1);
-	        			
-	        			drawOnLoc(6,turn,gp,boxesLeft);
-	        			boxesLeft.remove(Integer.valueOf(6));
-	        			turn=1;
-	        			gp.repaint();
-	        			//draw x or o
-	        		}
-	        		else
-	        		{
-	        			//Box 9
-	        			populateBoard.populate(9,1);
-	        			drawOnLoc(9,turn,gp,boxesLeft);
-	        			boxesLeft.remove(Integer.valueOf(9));
-	        			
-	        			turn=1;
-	        			gp.repaint();
-	        			//draw x or o
-	        		}       		
-	        	}
-	        	
-	        	System.out.println("boxes left2:  ");
-	    		for(int i=0;i<boxesLeft.size();i++)
-	    		{	
-	    			System.out.print(boxesLeft.get(i));
-	    		}
-	    		System.out.println();
-	    		
-	    		int delay = 500;
-	    		Timer timer = new Timer( delay,new ActionListener(){
-	    			  public void actionPerformed( ActionEvent e ){
-	    				  fillUpComp(LinkedList boxesLeft);
-	    			  }
-	    			} );
-	    		timer.setRepeats( false );
-	    		timer.start();   		
+	
+/*			System.out.println("boxes left after user's turn:");
+			for(int j=0;j<getLocation.boxesLeft.size();j++)
+				System.out.print(getLocation.boxesLeft.get(j));
+			System.out.println();*/
+			
+			
+		//checking if we have a winner
+        if(winner!=null)
+        {
+        	JOptionPane.showMessageDialog(null,"Winner is "+winner);
+  			System.out.println("Game end");
+  			System.exit(0); 				 				
+        }
+    		
+        //computer's turn to be called with delay of 800 ms
+    	int delay = 800;
+    	if(getLocation.turn == 1){
+    	   	Timer timer = new Timer(delay,new ActionListener(){
+       		 public void actionPerformed( ActionEvent e )
+       		{    fillUpComp();    }
+       	} );
+       	timer.setRepeats( false );
+      		timer.start(); 
+    	}
+ 		
+	}
+
+	 static void fillUpComp()
+	{
+		//computer's turn
+  		int loc = ct.computersChance();	
+		drawOnLoc(loc);
+		gameFrame.gp.repaint();
 		
+		//checking if we have a winner after computer's move
+		if(winner!=null)
+    	{
+        	JOptionPane.showMessageDialog(null,"Winner is "+winner);
+  			System.out.println("Game end");
+  			System.exit(0); 
+    	}
+		
+		getLocation.turn = 0; 	//next turn is user's
+	
 	}
 	
-	void drawOnLoc(int b,int t, gamePanel gp,LinkedList boxesLeft)
+	
+	static void drawOnLoc(int b)
 	{
 		int c,d;
 		switch (b)
@@ -187,30 +153,21 @@ public class fillBoard {
 			c=0;
 			d=0;
 		}
-		if(t==0)
+		
+		//turn = 0 is user
+		if(getLocation.turn==0) 
 		{
-			gp.zerox1.add(c);
-			gp.zeroy1.add(d);
-			System.out.println("user box= "+b);
+			gameFrame.gp.crossx1.add(c);
+			gameFrame.gp.crossy1.add(d);
+			//System.out.println("user box= "+b);
 		}
 		else
 		{
-			gp.crossx1.add(c);
-			gp.crossy1.add(d);
-			System.out.println("computer box= "+b);
+			gameFrame.gp.zerox1.add(c);
+			gameFrame.gp.zeroy1.add(d);
+			//System.out.println("computer box= "+b);
 		}
 	}
 	
 	
-	void fillUpComp(LinkedList boxesLeft,int turn )
-	{
-		//computer's turn
-		computerTurn ct = new computerTurn();
-   		int loc = ct.computersTurn(boxesLeft);
-		
-		drawOnLoc(loc,turn);
-		turn=0;
-		gp.repaint();
-	}
-	*/
 }

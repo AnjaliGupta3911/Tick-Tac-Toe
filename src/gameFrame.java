@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -7,8 +8,9 @@ import javax.swing.*;
 
 public class gameFrame extends JFrame 
 {
-	gamePanel gp = new gamePanel();
-	getLocation getLoc = new getLocation(gp);
+	//declaring gp as static so that repaint function can be called directly without obj
+	static gamePanel gp = new gamePanel();
+	getLocation getLoc = new getLocation();
 	
 	gameFrame()
 	{
@@ -18,7 +20,7 @@ public class gameFrame extends JFrame
 		this.setResizable(false);
 		this.setSize(300, 300);
 		this.setLocation(400, 200);
-		
+		this.setBackground(Color.BLACK);
 		this.addMouseListener(getLoc);		
 		
 	} 

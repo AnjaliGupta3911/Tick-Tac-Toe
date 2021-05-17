@@ -13,8 +13,7 @@ public class populateBoard {
 	static int sum_dig1=0;
 	static int sum_dig2=0;
 	
-	static String winner;
-	public static String populate(int box_no,int i)
+	public static void populate(int box_no,int i)
 	{
 		switch (box_no)
 		{
@@ -73,22 +72,20 @@ public class populateBoard {
 			
 		}
 		checkWinner();
-	
 		
-	return winner;
 	}
 	static void checkWinner()
 	{
 		
 		if(sum_row1 == 3 || sum_row2==3 || sum_row3==3 || sum_col1==3 || sum_col2==3 || sum_col3==3 || sum_dig1 ==3 || sum_dig2==3)
 		{
-			winner = "User"; //0->user
+			fillBoard.winner = "User"; //0->user
 		}
 		else if(sum_row1 == -3 || sum_row2==-3 || sum_row3==-3 || sum_col1==-3 || sum_col2==-3 || sum_col3==-3 || sum_dig1 ==-3 || sum_dig2==-3)
 		{
-			winner = "Computer";
+			fillBoard.winner = "Computer";
 		}
-		System.out.println(winner);
+		//System.out.println(winner);
 		
 	}
 }
