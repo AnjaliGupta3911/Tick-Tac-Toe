@@ -10,7 +10,7 @@ import javax.swing.Timer;
 
 public class computerTurn {
 	
-	int comp_pt = -1; 		 //each selected box of the board is populated by points according to player. -1 represents computer
+	final int comp_pt = -1; 		 //each selected box of the board is populated by points according to player. -1 represents computer
 	int computersChance()
 	{
 		int box = choosebox();

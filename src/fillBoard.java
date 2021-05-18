@@ -5,13 +5,11 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-
-//to-do: disable user from selecting already filled box
 public class fillBoard {
 
 	static String winner;
 	static computerTurn ct = new computerTurn();
-	static int user_pt = 1;		//each selected box of the board is populated by points according to player. 1 represents user
+	final static int user_pt = 1;		//each selected box of the board is populated by points according to player. 1 represents user
 	
 	
 	static void fillUp(int x_cor, int y_cor)
