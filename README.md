@@ -55,3 +55,8 @@ The board is logically divided into 9 partitions/boxes as shown below:
 <b>Step 3</b>: possiblePos is updated with boxes that either results in computer's win (priority 1) or blocks user's win (priority 2) or block user's future move (priority 3) <br>
 <b>Step 4</b>: Computer chooses one random box from possiblePos <br>
 <b>Step 5</b>: Repeat through 1-4 until we have a winner (value of any <i>sum</i> variable is 3/-3) or there's a tie (no more boxes left) <br>
+
+
+<h3> Screenshot of the game:</h3>
+
+![screenshot of game](https://github.com/AnjaliGupta3911/Tick-Tac-Toe/blob/2b3fa4a1746ae27dee6fd0271a4f04573a5132cb/TickTacToe.png)
